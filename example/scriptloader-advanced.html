@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Script Loader Advanced Example</title>
+
+    <!-- Load the scriptloader first -->
+    <script src="../src/scriptloader-advanced.js"></script>
+</head>
+<body>
+    <script>
+        function initApp(abc) {
+            console.log('App initialized');
+        }
+
+        const scripts = [
+            'https://code.jquery.com/jquery-3.6.0.min.js',
+            // FAILURE
+            //'https://cdn.jsdelivr.net/npm',
+            'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js',
+            'https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js'
+        ];
+
+        // Using Promise interface
+        /*        
+        scriptloader(scripts, initApp, {
+            timeout: 5000,
+            retryAttempts: 3,
+            onProgress: ({loaded, total, current}) => {
+                console.log(`Loading: ${loaded}/${total} - ${current}`);
+            }
+        })
+        .then(result => console.log('All scripts loaded:', result))
+        .catch(error => console.log('Some scripts failed:', error));        
+        */
+          
+        // Using callback interface
+        scriptloader(scripts, 
+            // result => console.log('Loading complete:', result),
+            initApp,
+            {
+                retryAttempts: 2,
+                retryDelay: 2000,
+                onProgress: ({loaded, total, current}) => {
+                    console.log(`Loading: ${loaded}/${total} - ${current}`);
+                }
+            }
+        );
+    </script>
+</body>
+</html>

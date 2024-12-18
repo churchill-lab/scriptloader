@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Script Loader Simple Example</title>
+    
+    <!-- Load the scriptloader first -->
+    <script src="../src/scriptloader-simple.js"></script>
+</head>
+<body>
+    <script>
+        function initApp() {
+            console.log('App initialized');
+        }
+
+        // List of scripts to load in order
+        const scripts = [
+            'https://code.jquery.com/jquery-3.6.0.min.js',
+            // FAILURE
+            'https://cdn.jsdelivr.net/npm',
+            'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js',
+            'https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js'
+        ];
+
+        // Load the scripts
+        //scriptloader(scripts, null);
+
+        // You can also use a callback function
+        scriptloader(scripts, initApp);
+    </script>
+    </body>
+</html>
